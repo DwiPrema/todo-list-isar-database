@@ -127,7 +127,7 @@ Todo _todoDeserialize(
   object.status = _TodostatusValueEnumMap[reader.readByteOrNull(offsets[2])] ??
       Status.pending;
   object.title = reader.readString(offsets[3]);
-  object.updatedAt = reader.readDateTime(offsets[4]);
+  object.updatedAt = reader.readDateTimeOrNull(offsets[4]);
   return object;
 }
 
@@ -148,7 +148,7 @@ P _todoDeserializeProp<P>(
     case 3:
       return (reader.readString(offset)) as P;
     case 4:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -922,8 +922,24 @@ extension TodoQueryFilter on QueryBuilder<Todo, Todo, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Todo, Todo, QAfterFilterCondition> updatedAtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'updatedAt',
+      ));
+    });
+  }
+
+  QueryBuilder<Todo, Todo, QAfterFilterCondition> updatedAtIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'updatedAt',
+      ));
+    });
+  }
+
   QueryBuilder<Todo, Todo, QAfterFilterCondition> updatedAtEqualTo(
-      DateTime value) {
+      DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'updatedAt',
@@ -933,7 +949,7 @@ extension TodoQueryFilter on QueryBuilder<Todo, Todo, QFilterCondition> {
   }
 
   QueryBuilder<Todo, Todo, QAfterFilterCondition> updatedAtGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -946,7 +962,7 @@ extension TodoQueryFilter on QueryBuilder<Todo, Todo, QFilterCondition> {
   }
 
   QueryBuilder<Todo, Todo, QAfterFilterCondition> updatedAtLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -959,8 +975,8 @@ extension TodoQueryFilter on QueryBuilder<Todo, Todo, QFilterCondition> {
   }
 
   QueryBuilder<Todo, Todo, QAfterFilterCondition> updatedAtBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1181,7 +1197,7 @@ extension TodoQueryProperty on QueryBuilder<Todo, Todo, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Todo, DateTime, QQueryOperations> updatedAtProperty() {
+  QueryBuilder<Todo, DateTime?, QQueryOperations> updatedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'updatedAt');
     });

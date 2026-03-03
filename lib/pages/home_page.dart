@@ -134,19 +134,38 @@ class _HomePageState extends State<HomePage> {
                     ),
                     ...List.generate(todos.length, (index) {
                       final todo = todos[index];
-                      final date = DateFormat('EEE, dd MMMM yyyy').format(todo.createdAt);
+
+                      final isEdited = todo.updatedAt != null;
+
+                      final displayDate =
+                          isEdited ? todo.updatedAt! : todo.createdAt;
+
+                      final locale = Localizations.localeOf(context).toString();
+
+                      final dateNow =
+                          DateFormat('EEE, dd MMMM yyyy', locale).format(displayDate);
+                      final timeNow = DateFormat.jm(locale).format(displayDate);
 
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: TodoCard(
-                            onTapEdit: () {},
+                            onTapEdit: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return TaskCreatePage(
+                                  todo: todo,
+                                );
+                              }));
+                            },
                             onTapRemove: () {
                               return _removeAlert(todo);
                             },
                             title: todo.title,
                             description: todo.description,
                             status: "status : ${todo.status.name}",
-                            date: "created at : $date"),
+                            date: isEdited
+                                ? "updated at : $timeNow"
+                                : "created at : $timeNow"),
                       );
                     }),
                   ],

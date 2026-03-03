@@ -8,7 +8,9 @@ import 'package:todo_list_isar_database/widget/text_field.dart';
 import 'package:todo_list_isar_database/widget/text_widget.dart';
 
 class TaskCreatePage extends StatefulWidget {
-  const TaskCreatePage({super.key});
+  final Todo? todo;
+
+  const TaskCreatePage({super.key, this.todo});
 
   @override
   State<TaskCreatePage> createState() => _TaskCreatePageState();
@@ -20,6 +22,17 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
   Status status = Status.pending;
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.todo != null) {
+      titleController.text = widget.todo!.title;
+      descriptionController.text = widget.todo!.description ?? "";
+      status = widget.todo!.status;
+    }
+  }
+
+  @override
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
@@ -29,7 +42,6 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
   @override
   Widget build(BuildContext context) {
     String dateNow = DateFormat('EEE, dd MMMM yyyy').format(DateTime.now());
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -77,12 +89,22 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
                         GestureDetector(
                           onTap: () async {
                             if (titleController.text.isNotEmpty) {
-                              Todo newTodo = Todo();
-                              newTodo = newTodo.copyWith(
-                                title: titleController.text,
-                                description: descriptionController.text,
-                                status: status,
-                              );
+                              late Todo newTodo;
+                              if (widget.todo != null) {
+                                newTodo = widget.todo!.copyWith(
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  status: status,
+                                  updatedAt: DateTime.now(),
+                                );
+                              } else {
+                                newTodo = Todo().copyWith(
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  status: status,
+                                  updatedAt: null
+                                );
+                              }
 
                               await DatabaseService.db.writeTxn(
                                 () async {
@@ -107,7 +129,8 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
                     const SizedBox(
                       height: 42,
                     ),
-                    textPoppins("Create Task",
+                    textPoppins(
+                        widget.todo != null ? "Edit Task" : "Create Task",
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                         color: AppColors.black),

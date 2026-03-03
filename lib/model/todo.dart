@@ -17,18 +17,19 @@ class Todo {
   Status status = Status.pending;
 
   DateTime createdAt = DateTime.now();
-  DateTime updatedAt = DateTime.now();
+  DateTime? updatedAt;
 
   Todo copyWith({
     String? title,
     String? description,
     Status? status,
+    DateTime? updatedAt,
   }) {
     return Todo()
       ..id = id
       ..status = status ?? this.status
       ..createdAt = createdAt
-      ..updatedAt = updatedAt
+      ..updatedAt = updatedAt ?? this.updatedAt
       ..title = title ?? this.title
       ..description = description ?? this.description;
   }
