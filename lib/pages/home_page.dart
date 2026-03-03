@@ -165,8 +165,8 @@ class _HomePageState extends State<HomePage> {
                             description: todo.description,
                             status: "status : ${todo.status.name}",
                             date: isEdited
-                                ? "updated at : $timeNow"
-                                : "created at : $timeNow"),
+                                ? "updated at : $dateNow. $timeNow"
+                                : "created at : $dateNow. $timeNow"),
                       );
                     }),
                   ],
