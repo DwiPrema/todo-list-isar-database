@@ -62,16 +62,11 @@ fvm flutter run
 
 - ✅ UI implementation
 
-- ⏳ CRUD features (in progress)
+- ✅ CRUD features
 
 - ⏳ Status Kategori (pending)
 
 This repository currently serves as a clean and stable base project.
 
 ## 🧠 Future Plans
-
-- Add Todo CRUD (Create, Read, Update, Delete)
-
-- Implement local persistence using Isar
-
 - Improve UI & UX
