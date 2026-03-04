@@ -54,7 +54,7 @@ fvm flutter pub get
 fvm flutter run
 ```
 
-## Project Status 📂
+## 📂 Project Status 
 
 - ✅ Project initialized
 
@@ -64,9 +64,15 @@ fvm flutter run
 
 - ✅ CRUD features
 
-- ⏳ Status Kategori (pending)
+- ✅ Status Category
 
 This repository currently serves as a clean and stable base project.
 
 ## 🧠 Future Plans
 - Improve UI & UX
+
+## 📸 App Preview 
+
+| Home | Task List | Create Task | Edit Task |
+|-----|---------|----------|----------|
+| ![](assets/app_screenshot/Screenshot_1.jpg) | ![](assets/app_screenshot/Screenshot_5.jpg) | ![](assets/app_screenshot/Screenshot_3.jpg) | ![](assets/app_screenshot/Screenshot_2.jpg) |
