@@ -75,4 +75,4 @@ This repository currently serves as a clean and stable base project.
 
 | Home | Task List | Create Task | Edit Task |
 |-----|---------|----------|----------|
-| ![](assets/app_screenshot/Screenshot_1.jpg) | ![](assets/app_screenshot/Screenshot_5.jpg) | ![](assets/app_screenshot/Screenshot_3.jpg) | ![](assets/app_screenshot/Screenshot_2.jpg) |
+| ![](assets/app_screenshot/Screenshot_1.jpg) | ![](assets/app_screenshot/Screenshot_5.jpg) | ![](assets/app_screenshot/Screenshot_3.jpg) | ![](assets/app_screenshot/Screenshot_4.jpg) |
